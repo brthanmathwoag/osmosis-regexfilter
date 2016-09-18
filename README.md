@@ -19,6 +19,6 @@ Then reference it with `regex-filter` or `rf` aliases in your workflow:
 
 ```
 osmosis --read-pbf germany-latest.osm.pbf \
-    --regex-filter 'addr:.*:.*' \
+    --regex-filter 'addr:.*=.*' \
     --out-xml addresses.xml
 ```
