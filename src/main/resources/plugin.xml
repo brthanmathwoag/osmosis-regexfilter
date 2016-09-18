@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="SRTMplugin" version="1.0">
+    <requires>
+        <import plugin-id="org.openstreetmap.osmosis.core.plugin.Core" reverse-lookup="false"/>
+    </requires>
+    <runtime>
+        <library id="code" path="/" type="code"/>
+    </runtime>
+    <extension plugin-id="org.openstreetmap.osmosis.core.plugin.Core"
+               point-id="Task" id="LibOSM/OsmBin-Tasks/writeOsmBin">
+        <parameter id="name"
+                   value="RegexEntityFilter"/>
+        <parameter id="class"
+                   value="org.brth.osmosis.regexfilter.RfPluginLoader"/>
+    </extension>
+</plugin>
