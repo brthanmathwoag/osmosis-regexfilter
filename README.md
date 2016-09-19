@@ -12,7 +12,7 @@ git clone https://github.com/brthanmathwoag/osmosis-regexfilter.git
 cd osmosis-regexfilter
 mvn package
 mkdir -p ~/.openstreetmap/osmosis/plugins/
-cp target/osmosis-regexfilter-1.0.jar ~/.openstreetmap/osmosis/plugins/
+cp target/osmosis-regexfilter.jar ~/.openstreetmap/osmosis/plugins/
 ```
 
 Then reference it with `regex-filter` or `rf` aliases in your workflow:
