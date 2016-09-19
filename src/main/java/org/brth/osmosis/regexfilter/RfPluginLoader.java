@@ -10,8 +10,9 @@ public class RfPluginLoader implements PluginLoader {
     @Override
     public Map<String, TaskManagerFactory> loadTaskFactories() {
         HashMap<String, TaskManagerFactory> map = new HashMap<String, TaskManagerFactory>();
-        map.put("regex-filter", new RfTaskManagerFactory());
-        map.put("rf", new RfTaskManagerFactory());
+        RfTaskManagerFactory factory = new RfTaskManagerFactory();
+        map.put("regex-filter", factory);
+        map.put("rf", factory);
         return map;
     }
 }
