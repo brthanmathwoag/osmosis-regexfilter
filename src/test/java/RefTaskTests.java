@@ -39,7 +39,7 @@ public class RefTaskTests {
 
         EntityContainer[] containers = { node1Container, node2Container, node3Container };
 
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put("^alpha.*", ".*");
         RfTask task = new RfTask(map);
 
@@ -70,7 +70,7 @@ public class RefTaskTests {
 
         EntityContainer[] containers = { node1Container, node2Container, node3Container };
 
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put(".*alpha$", ".*");
         RfTask task = new RfTask(map);
 
@@ -105,7 +105,7 @@ public class RefTaskTests {
 
         EntityContainer[] containers = { node1Container, node2Container, node3Container, node4Container };
 
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put("^alpha.*beta$", ".*");
         RfTask task = new RfTask(map);
 
@@ -136,7 +136,7 @@ public class RefTaskTests {
 
         EntityContainer[] containers = { node1Container, node2Container, node3Container };
 
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put(".*a:a.*", ".*");
         RfTask task = new RfTask(map);
 

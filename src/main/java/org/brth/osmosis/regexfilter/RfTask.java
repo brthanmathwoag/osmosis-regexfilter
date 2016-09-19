@@ -14,7 +14,7 @@ public class RfTask implements SinkSource {
     private Sink sink;
 
     public RfTask(Map<String, String> parameters) {
-        filters = new LinkedList<EntityFilter>();
+        filters = new LinkedList<>();
         for(Map.Entry<String, String> entry : parameters.entrySet()) {
             filters.add(new EntityFilter(entry));
         }
