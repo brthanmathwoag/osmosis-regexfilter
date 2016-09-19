@@ -2,10 +2,13 @@
 
 This is an [Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) plugin for filtering entities based on regular expressions.
 This allows more finely-grained control than the default tag-filter plugin which accepts only exact key=value or key=* matches.
- 
-## Usage
 
-Build the jar and copy it to your plugins directory:
+## Installation
+
+You can grab the latest version from [here](https://drive.google.com/file/d/0B_sU33gr527ZdVgzemFXNkFWU00/view?usp=sharing) (SHA1: 5656fb0f3cd850b150eb0ebe504056569fd4d132)
+Put it in `~/.openstreetmap/osmosis/plugins/` and you are ready to go.
+
+To build it yourself, run:
 
 ```
 git clone https://github.com/brthanmathwoag/osmosis-regexfilter.git
@@ -15,7 +18,9 @@ mkdir -p ~/.openstreetmap/osmosis/plugins/
 cp target/osmosis-regexfilter.jar ~/.openstreetmap/osmosis/plugins/
 ```
 
-Then reference it with `regex-filter` or `rf` aliases in your workflow.
+## Usage
+
+You can reference the plugin in your workflow with `regex-filter` or `rf` aliases.
 For example, to get all entities with any 'addr' subkey set, try the following:
 
 ```
