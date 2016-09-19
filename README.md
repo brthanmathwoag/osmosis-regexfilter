@@ -15,7 +15,8 @@ mkdir -p ~/.openstreetmap/osmosis/plugins/
 cp target/osmosis-regexfilter.jar ~/.openstreetmap/osmosis/plugins/
 ```
 
-Then reference it with `regex-filter` or `rf` aliases in your workflow:
+Then reference it with `regex-filter` or `rf` aliases in your workflow.
+For example, to get all entities with any 'addr' subkey set, try the following:
 
 ```
 osmosis --read-pbf germany-latest.osm.pbf \
