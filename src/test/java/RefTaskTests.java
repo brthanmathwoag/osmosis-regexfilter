@@ -3,10 +3,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openstreetmap.osmosis.core.container.v0_6.EntityContainer;
 import org.openstreetmap.osmosis.core.container.v0_6.NodeContainer;
-import org.openstreetmap.osmosis.core.domain.v0_6.CommonEntityData;
-import org.openstreetmap.osmosis.core.domain.v0_6.Node;
-import org.openstreetmap.osmosis.core.domain.v0_6.OsmUser;
-import org.openstreetmap.osmosis.core.domain.v0_6.Tag;
+import org.openstreetmap.osmosis.core.container.v0_6.RelationContainer;
+import org.openstreetmap.osmosis.core.container.v0_6.WayContainer;
+import org.openstreetmap.osmosis.core.domain.v0_6.*;
 import org.openstreetmap.osmosis.testutil.v0_6.SinkEntityInspector;
 
 import java.util.*;
@@ -41,7 +40,7 @@ public class RefTaskTests {
 
         HashMap<String, String> map = new HashMap<>();
         map.put("^alpha.*", ".*");
-        RfTask task = new RfTask(map);
+        RfTask task = new RfTask(map, false, EntityType.Node);
 
         task.setSink(entityInspector);
         for(EntityContainer container : containers) {
@@ -72,7 +71,7 @@ public class RefTaskTests {
 
         HashMap<String, String> map = new HashMap<>();
         map.put(".*alpha$", ".*");
-        RfTask task = new RfTask(map);
+        RfTask task = new RfTask(map, false, EntityType.Node);
 
         task.setSink(entityInspector);
         for(EntityContainer container : containers) {
@@ -107,7 +106,7 @@ public class RefTaskTests {
 
         HashMap<String, String> map = new HashMap<>();
         map.put("^alpha.*beta$", ".*");
-        RfTask task = new RfTask(map);
+        RfTask task = new RfTask(map, false, EntityType.Node);
 
         task.setSink(entityInspector);
         for(EntityContainer container : containers) {
@@ -138,7 +137,7 @@ public class RefTaskTests {
 
         HashMap<String, String> map = new HashMap<>();
         map.put(".*a:a.*", ".*");
-        RfTask task = new RfTask(map);
+        RfTask task = new RfTask(map, false, EntityType.Node);
 
         task.setSink(entityInspector);
         for(EntityContainer container : containers) {
@@ -147,6 +146,73 @@ public class RefTaskTests {
         task.complete();
 
         List<EntityContainer> expectedResult = Arrays.asList(node1Container, node3Container);
+        assertTrue(entityInspector.getProcessedEntities().equals(expectedResult));
+        task.release();
+    }
+
+    @Test
+    public final void testFilteringByEntityType() {
+        List<Tag> tags = Arrays.asList(new Tag("beta:alpha", "one"));
+        Way way = new Way(new CommonEntityData(1110, 0, new Date(), user, 0, tags));
+        EntityContainer wayContainer = new WayContainer(way);
+
+        tags = Arrays.asList(new Tag("charlie:delta", "two"));
+        Relation relation = new Relation(new CommonEntityData(1111, 0, new Date(), user, 0, tags));
+        EntityContainer relationContainer = new RelationContainer(relation);
+
+        tags = Arrays.asList(new Tag("a:a", "three"));
+        Node node3 = new Node(new CommonEntityData(1112, 0, new Date(), user, 0, tags), 1, 2);
+        EntityContainer nodeContainer = new NodeContainer(node3);
+
+        EntityContainer[] containers = { nodeContainer, wayContainer, relationContainer };
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put(".*a:a.*", ".*");
+        RfTask task = new RfTask(map, false, EntityType.Way);
+
+        task.setSink(entityInspector);
+        for(EntityContainer container : containers) {
+            task.process(container);
+        }
+        task.complete();
+
+        List<EntityContainer> expectedResult = Arrays.asList(nodeContainer, wayContainer, relationContainer);
+        Iterable<EntityContainer> actualResult = entityInspector.getProcessedEntities();
+        assertTrue(actualResult.equals(expectedResult));
+        task.release();
+    }
+
+    @Test
+    public final void testRejection () {
+        List<Tag> tags = Arrays.asList(new Tag("beta:alpha", "one"));
+        Node node1 = new Node(new CommonEntityData(1110, 0, new Date(), user, 0, tags), 1, 2);
+        EntityContainer node1Container = new NodeContainer(node1);
+
+        tags = Arrays.asList(new Tag("charlie:delta", "two"));
+        Node node2 = new Node(new CommonEntityData(1111, 0, new Date(), user, 0, tags), 1, 2);
+        EntityContainer node2Container = new NodeContainer(node2);
+
+        tags = Arrays.asList(new Tag("a:a", "three"));
+        Node node3 = new Node(new CommonEntityData(1112, 0, new Date(), user, 0, tags), 1, 2);
+        EntityContainer node3Container = new NodeContainer(node3);
+
+        tags = Arrays.asList(new Tag("charlie:delta", "two"));
+        Relation relation = new Relation(new CommonEntityData(1111, 0, new Date(), user, 0, tags));
+        EntityContainer relationContainer = new RelationContainer(relation);
+
+        EntityContainer[] containers = { node1Container, node2Container, node3Container, relationContainer };
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put(".*a:a.*", ".*");
+        RfTask task = new RfTask(map, true, EntityType.Node);
+
+        task.setSink(entityInspector);
+        for(EntityContainer container : containers) {
+            task.process(container);
+        }
+        task.complete();
+
+        List<EntityContainer> expectedResult = Arrays.asList(node2Container, relationContainer);
         assertTrue(entityInspector.getProcessedEntities().equals(expectedResult));
         task.release();
     }

@@ -21,10 +21,12 @@ cp target/osmosis-regexfilter.jar ~/.openstreetmap/osmosis/plugins/
 ## Usage
 
 You can reference the plugin in your workflow with `regex-filter` or `rf` aliases.
-For example, to get all entities with any 'addr' subkey set, try the following:
+For example, to get all nodes with any 'addr' subkey set, try the following:
 
 ```
 osmosis --read-pbf germany-latest.osm.pbf \
-    --regex-filter 'addr:.*=.*' \
+    --tag-filter reject-ways \
+    --tag-filter reject-relations \
+    --regex-filter accept-nodes 'addr:.*=.*' \
     --out-xml addresses.xml
 ```
