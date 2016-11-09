@@ -11,11 +11,9 @@ Put it in `~/.openstreetmap/osmosis/plugins/` and you are ready to go.
 To build it yourself, run:
 
 ```
-git clone https://github.com/brthanmathwoag/osmosis-regexfilter.git
+git clone https://github.com/brthanmathwoag/osmosis-regexfilter
 cd osmosis-regexfilter
-mvn package
-mkdir -p ~/.openstreetmap/osmosis/plugins/
-cp target/osmosis-regexfilter.jar ~/.openstreetmap/osmosis/plugins/
+mvn install
 ```
 
 ## Usage
