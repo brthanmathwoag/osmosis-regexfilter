@@ -1,5 +1,8 @@
 # osmosis-regexfilter
 
+![build 
+status](https://travis-ci.org/brthanmathwoag/osmosis-regexfilter.svg?branch=master)
+
 This is an [Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) plugin for filtering entities based on regular expressions.
 This allows more finely-grained control than the default tag-filter plugin which accepts only exact key=value or key=* matches.
 
