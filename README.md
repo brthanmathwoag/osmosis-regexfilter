@@ -8,7 +8,7 @@ This allows more finely-grained control than the default tag-filter plugin which
 
 ## Installation
 
-You can grab the latest version from [here](https://drive.google.com/file/d/0B_sU33gr527ZdVgzemFXNkFWU00/view?usp=sharing) (SHA1: 37aba26210ca241ca57e74996cca95e7815832db)
+You can grab the latest version from [here](https://tznvy.eu/download/osmosis-regexfilter.jar) (SHA1: 37aba26210ca241ca57e74996cca95e7815832db)
 Put it in `~/.openstreetmap/osmosis/plugins/` and you are ready to go.
 
 To build it yourself, run:
